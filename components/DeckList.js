@@ -1,34 +1,29 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, FlatList } from 'react-native';
+import { connect } from 'react-redux';
 import TextButton from './TextButton';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { objectToArray } from '../utils/helpers';
+import DeckItem from './DeckItem';
 
-export default class DeckList extends Component {
+class DeckList extends Component {
   constructor(props) {
     super(props);
     this.state = {}
   }
 
+  componentDidMount() {
+    console.log(JSON.stringify(this.props.decks))
+  }
+
+  renderItem = ({ item }) => {
+    return <DeckItem title={item.title} cardsNumber={item.questions.length} />
+  }
+
   render() {
     return (
       <View style={styles.container}>
-        <Text>Deck List View</Text>
-        <TextButton
-          onPress={() => this.props.navigation.navigate('NewDeck')}
-          style={styles.textBtn}
-        >
-          Add Deck
-        </TextButton>
-        <View style={styles.container}>
-          <TextButton
-            onPress={() => this.props.navigation.navigate(
-              'Deck',
-              { id: 1 }
-            )}
-            style={styles.textBtn}
-          >
-            Deck #1
-          </TextButton>
-        </View>
+        <FlatList data={this.props.decks} renderItem={this.renderItem} />
       </View>
     )
   }
@@ -46,3 +41,11 @@ const styles = StyleSheet.create({
   //   bottom: 10,
   // }
 })
+
+const mapStateToProps = ({ deck }, ownProps) => {
+  return {
+    decks: objectToArray(deck.byId)
+  }
+}
+
+export default connect(mapStateToProps, {})(DeckList);
