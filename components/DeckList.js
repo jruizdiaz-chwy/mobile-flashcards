@@ -32,14 +32,7 @@ class DeckList extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1
-  },
-  // textBtn: {
-  //   position: 'absolute',
-  //   width: 60,  
-  //   height: 60, 
-  //   right: 10,
-  //   bottom: 10,
-  // }
+  }
 })
 
 const mapStateToProps = ({ deck }, ownProps) => {
