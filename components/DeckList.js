@@ -16,8 +16,16 @@ class DeckList extends Component {
     console.log(JSON.stringify(this.props.decks))
   }
 
+  hanldePress = (id) => {
+    this.props.navigation.navigate(
+      'Deck',
+      { id }
+    );
+  }
+
   renderItem = ({ item }) => {
-    return <DeckItem title={item.title} cardsNumber={item.questions.length} />
+    const cardCount = this.props.questions.filter(q => q.deck === item.title).length;
+    return <DeckItem title={item.title} cardCount={cardCount} onPress={() => this.hanldePress(item.title)} />
   }
 
   render() {
@@ -35,9 +43,10 @@ const styles = StyleSheet.create({
   }
 })
 
-const mapStateToProps = ({ deck }, ownProps) => {
+const mapStateToProps = ({ deck, question }, ownProps) => {
   return {
-    decks: objectToArray(deck.byId)
+    decks: objectToArray(deck.byId),
+    questions: objectToArray(question.byId)
   }
 }
 

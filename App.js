@@ -12,7 +12,7 @@ import Deck from './components/Deck';
 import DeckList from './components/DeckList';
 import AddDeck from './components/AddDeck';
 import AddQuestion from './components/AddQuestion';
-import Question from './components/Question';
+import Quiz from './components/Quiz';
 
 const DeckTabs = TabNavigator(
   {
@@ -69,8 +69,11 @@ const MainNavigator = StackNavigator({
       title: 'New Question'
     }
   },
-  Question: {
-    screen: Question
+  Quiz: {
+    screen: Quiz,
+    navigationOptions: {
+      title: 'Quiz'
+    }
   }
 });
 

@@ -4,13 +4,13 @@ import { gray } from '../utils/colors';
 
 const DeckItem = (props) => {
   return (
-    <TouchableNativeFeedback style={styles.container}>
+    <TouchableNativeFeedback onPress={props.onPress} style={styles.container}>
       <View style={styles.container}>
         <Text style={styles.titleText}>
           {props.title}
         </Text>
         <Text style={styles.cardsText}>
-          {`${props.cardsNumber} cards`}
+          {`${props.cardCount} cards`}
         </Text>
       </View>
     </TouchableNativeFeedback>
