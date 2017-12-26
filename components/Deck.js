@@ -25,8 +25,7 @@ class Deck extends Component {
     navigation.navigate(
       'Quiz',
       {
-        id: questions[0].id,
-        index: 1,
+        deck: navigation.state.params.id,
         questionCount: questions.length
       })
   }
