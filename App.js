@@ -23,7 +23,7 @@ const DeckTabs = TabNavigator(
         tabBarIcons: ((tintColor) => <MaterialCommunityIcons name='cards-outline' size={30} color={tintColor} />)
       }
     },
-    NewDeck: {
+    AddDeck: {
       screen: AddDeck,
       navigationOptions: {
         tabBarLabel: 'New Deck',
