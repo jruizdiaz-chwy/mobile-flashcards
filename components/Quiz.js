@@ -24,6 +24,11 @@ class Quiz extends Component {
     }
   }
 
+  /**
+  * @description Checks the answer value and updates the correctAnswers count,
+  * if last question was answered, updates state to show quiz results.
+  * @return {Void}
+  */
   handleAnswer = (answerValue) => {
     const showOutCome = (this.state.index + 1) === this.props.questionCount;
     let correctCount = this.state.correctAnswers;

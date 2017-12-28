@@ -27,19 +27,24 @@ class AddDeck extends Component {
     }));
   }
 
+ /**
+ * @description Adds the deck to the phone's storage, 
+ * updates the redux state and navigates back to the deck list view.
+ * @return {Void}
+ */
   handleAddDeck = () => {
     const deck = this.state;
     const { dispatch } = this.props;
-    
+
     if (deck.title !== '') {
       dispatch(addDeck(deck));
-  
+
       saveDeck(deck);
-  
+
       this.setState({
         title: ''
       });
-  
+
       this.toDeckList();
 
     } else {
@@ -57,7 +62,7 @@ class AddDeck extends Component {
           value={title}
           onChangeText={(text) => this.setState({ title: text })}
         />
-        <Button 
+        <Button
           disabled={true}
           textColor={white}
           backgroundColor={green}

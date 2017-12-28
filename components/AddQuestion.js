@@ -27,10 +27,15 @@ class AddDeck extends Component {
     this.props.navigation.dispatch(NavigationActions.back());
   }
 
+  /**
+  * @description Adds the question to the phone's storage, 
+  * updates the redux state and navigates back to the deck list view.
+  * @return {Void}
+  */
   handleAddQuestion = () => {
     const { question, answer } = this.state;
     const { dispatch, deck } = this.props;
-    
+
     if (question !== '' && answer !== '') {
 
       const questionObject = {
