@@ -4,7 +4,7 @@ This Android native application made with React Native is the final project for 
 where users can:
 * Add decks of flash cards about different topics or subjects to study.
 * Add new flash cards (questions) to the available decks.
-* Quiz their knowledge about a topic or subject using a deck of flash cards.
+* Test their knowledge about a topic or subject by doing a quiz of a deck of flash cards.
 
 ## Requirements
 
