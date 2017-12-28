@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
 import { red, green, white } from '../utils/colors';
 import { objectToArray } from '../utils/helpers';
@@ -18,10 +19,21 @@ class Quiz extends Component {
     super(props);
     this.state = {
       index: 0,
-      showAnswer: false,
       showQuizOutcome: false,
       correctAnswers: 0
     }
+  }
+
+  toDeckView = () => {
+    this.props.navigation.dispatch(NavigationActions.back());
+  }
+
+  startOver = () => {
+    this.setState({
+      index: 0,
+      showQuizOutcome: false,
+      correctAnswers: 0
+    })
   }
 
   /**
@@ -46,10 +58,29 @@ class Quiz extends Component {
     const { questions, questionCount } = this.props;
 
     if (showQuizOutcome) {
-      return <QuizOutcome
-        correctAnswers={correctAnswers}
-        questionCount={questionCount}
-         />
+      return (
+        <View style={styles.container}>
+          <QuizOutcome
+            correctAnswers={correctAnswers}
+            questionCount={questionCount}
+          />
+          <Button
+            textColor={green}
+            backgroundColor={white}
+            onPress={() => this.startOver()}
+          >
+            Try again!
+          </Button>
+          <Button
+            textColor={white}
+            backgroundColor={green}
+            onPress={() => this.toDeckView()}
+          >
+            Back to deck
+          </Button>
+        </View>
+      )
+
     }
 
     const question = questions[index];

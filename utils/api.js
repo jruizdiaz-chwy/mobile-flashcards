@@ -26,6 +26,7 @@ export const saveDeck = (deck) => {
  * @return {Promise}
  */
 export const fetchQuestions = () => {
+  debugger;
   return AsyncStorage.getItem(QUESTION_STORAGE_KEY).then(res => JSON.parse(res));
 }
 

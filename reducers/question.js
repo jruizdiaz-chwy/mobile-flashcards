@@ -9,8 +9,7 @@ const question = (state = { byId: {}, allIds: [] }, action) => {
     case GET_ALL_QUESTIONS:
       if (!action.questions)
         return state;
-      else
-        byId = action.questions;
+      byId = action.questions;
       allIds: Object.keys(byId);
       return {
         byId,

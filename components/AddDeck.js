@@ -21,10 +21,14 @@ class AddDeck extends Component {
     }
   }
 
-  toDeckList = () => {
-    this.props.navigation.dispatch(NavigationActions.back({
-      key: 'AddDeck'
-    }));
+  toDeckView = (id) => {
+    this.props.navigation.navigate(
+      'DeckList',
+    );
+    this.props.navigation.navigate(
+      'Deck',
+      { id }
+    );
   }
 
  /**
@@ -45,7 +49,7 @@ class AddDeck extends Component {
         title: ''
       });
 
-      this.toDeckList();
+      this.toDeckView(deck.title);
 
     } else {
       ToastAndroid.show('You must give the new deck a title!', ToastAndroid.SHORT)
