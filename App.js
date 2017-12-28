@@ -13,6 +13,7 @@ import DeckList from './components/DeckList';
 import AddDeck from './components/AddDeck';
 import AddQuestion from './components/AddQuestion';
 import Quiz from './components/Quiz';
+import { setLocalNotification } from './utils/api';
 
 const DeckTabs = TabNavigator(
   {
@@ -88,9 +89,12 @@ const AppStatusBar = ({ backgroundColor, ...props }) => {
 const rootReducer = combineReducers({ deck, question });
 
 const store = createStore(rootReducer);
-console.log(JSON.stringify(store.getState().deck));
 
 export default class App extends React.Component {
+  componentDidMount() {
+    setLocalNotification();
+  }
+
   render() {
     return (
       <Provider store={store}>

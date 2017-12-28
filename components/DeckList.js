@@ -3,8 +3,9 @@ import { View, Text, StyleSheet, FlatList } from 'react-native';
 import { connect } from 'react-redux';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { objectToArray } from '../utils/helpers';
-import { fetchDecks } from '../utils/api';
+import { fetchDecks, fetchQuestions } from '../utils/api';
 import { receiveDecks } from '../actions/deck';
+import { receiveQuestions } from '../actions/question';
 import { AppLoading } from 'expo';
 import DeckItem from './DeckItem';
 
@@ -27,6 +28,9 @@ class DeckList extends Component {
     const { dispatch, decks } = this.props;
     fetchDecks()
       .then(decks => dispatch(receiveDecks(decks)))
+
+    fetchQuestions()
+      .then(questions => dispatch(receiveQuestions(questions)))
       .then(this.setState({ ready: true }))
   }
 
@@ -49,7 +53,9 @@ class DeckList extends Component {
   render() {
     const { ready } = this.state;
     if (!ready) {
-      return <AppLoading />
+      return <View style={styles.container}>
+        <AppLoading />
+      </View>
     }
 
     const { decks } = this.props;
@@ -66,7 +72,7 @@ class DeckList extends Component {
         <FlatList
           data={decks}
           renderItem={this.renderItem}
-          keyExtractor={this.keyExtractor}/>
+          keyExtractor={this.keyExtractor} />
       </View>
     )
   }

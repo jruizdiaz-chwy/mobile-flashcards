@@ -4,6 +4,7 @@ import { View, Text, StyleSheet } from 'react-native';
 import { gray, green, white, black } from '../utils/colors';
 import Button from './Button';
 import { objectToArray } from '../utils/helpers';
+import { clearLocalNotification, setLocalNotification } from '../utils/api';
 
 /**
  * @description Renders a deck view with the options to start a quiz and add questions to it. 
@@ -35,6 +36,9 @@ class Deck extends Component {
 
   goToQuiz = () => {
     const { navigation, questions } = this.props;
+    clearLocalNotification()
+      .then(setLocalNotification());
+
     navigation.navigate(
       'Quiz',
       {
