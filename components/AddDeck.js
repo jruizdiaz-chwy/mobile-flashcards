@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { View, Text, StyleSheet, TextInput } from 'react-native';
+import { View, Text, StyleSheet, TextInput, ToastAndroid } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import Button from './Button';
 import { gray, green, white } from '../utils/colors';
@@ -25,15 +25,20 @@ class AddDeck extends Component {
     const deck = this.state;
     const { dispatch } = this.props;
     
-    dispatch(addDeck(deck));
+    if (deck.title !== '') {
+      dispatch(addDeck(deck));
+  
+      saveDeck(deck);
+  
+      this.setState({
+        title: ''
+      });
+  
+      this.toDeckList();
 
-    saveDeck(deck);
-
-    this.setState({
-      title: ''
-    });
-
-    this.toDeckList();
+    } else {
+      ToastAndroid.show('You must give the new deck a title!', ToastAndroid.SHORT)
+    }
   }
 
   render() {
@@ -46,7 +51,11 @@ class AddDeck extends Component {
           value={title}
           onChangeText={(text) => this.setState({ title: text })}
         />
-        <Button textColor={white} backgroundColor={green} onPress={this.handleAddDeck}>
+        <Button 
+          disabled={true}
+          textColor={white}
+          backgroundColor={green}
+          onPress={this.handleAddDeck}>
           Add Deck
         </Button>
       </View>

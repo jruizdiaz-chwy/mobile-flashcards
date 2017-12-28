@@ -20,6 +20,14 @@ class Deck extends Component {
     }
   }
 
+  goToAddQuestion = () => {
+    this.props.navigation.navigate(
+      'AddQuestion', {
+        deck: this.props.title
+      }
+    )
+  }
+
   goToQuiz = () => {
     const { navigation, questions } = this.props;
     navigation.navigate(
@@ -54,7 +62,11 @@ class Deck extends Component {
               </Button>
             : <Text style={styles.noCardsText}>This deck has no questions yet!</Text> 
             }
-        <Button backgroundColor={green} textColor={white} onPress={() => console.log('AddQuestion')}>
+        <Button 
+          backgroundColor={green}
+          textColor={white}
+          onPress={this.goToAddQuestion}
+        >
           Add Question
         </Button>
       </View>
