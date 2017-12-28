@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, FlatList } from 'react-native';
 import { connect } from 'react-redux';
-import TextButton from './TextButton';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { objectToArray } from '../utils/helpers';
 import { fetchDecks } from '../utils/api';
@@ -9,6 +8,13 @@ import { receiveDecks } from '../actions/deck';
 import { AppLoading } from 'expo';
 import DeckItem from './DeckItem';
 
+/**
+ * @description Renders a list view that shows every deck available. 
+ * @constructor
+ * @extends React.Component.
+ * @param {object} props An object with: the list of available decks
+ * and a list of the available questions.
+ */
 class DeckList extends Component {
   constructor(props) {
     super(props);
@@ -29,6 +35,10 @@ class DeckList extends Component {
       'Deck',
       { id }
     );
+  }
+
+  keyExtractor = (item) => {
+    return item.title;
   }
 
   renderItem = ({ item }) => {
@@ -53,7 +63,10 @@ class DeckList extends Component {
     console.log(`render method: ${JSON.stringify(decks)}`)
     return (
       <View style={styles.container}>
-        <FlatList data={decks} renderItem={this.renderItem} />
+        <FlatList
+          data={decks}
+          renderItem={this.renderItem}
+          keyExtractor={this.keyExtractor}/>
       </View>
     )
   }
@@ -63,7 +76,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'stretch',
   },
   emptyText: {
     textAlign: 'center',

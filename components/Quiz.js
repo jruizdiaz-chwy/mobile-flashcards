@@ -1,11 +1,18 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
-import { gray, green, white, red } from '../utils/colors';
+import { red, green, white } from '../utils/colors';
 import { objectToArray } from '../utils/helpers';
-import TextButton from './TextButton';
 import Button from './Button';
+import Question from './Question';
+import QuizOutcome from './QuizOutcome';
 
+/**
+ * @description Renders a quiz view with controls to answer questions and a final result summary. 
+ * @constructor
+ * @extends React.Component.
+ * @param {object} props An object with: the associated deck, it's questions and the number of questions.
+ */
 class Quiz extends Component {
   constructor(props) {
     super(props);
@@ -15,12 +22,6 @@ class Quiz extends Component {
       showQuizOutcome: false,
       correctAnswers: 0
     }
-  }
-
-  handleShowAnswer = () => {
-    this.setState((prevState) => ({
-      showAnswer: !prevState.showAnswer
-    }));
   }
 
   handleAnswer = (answerValue) => {
@@ -38,66 +39,38 @@ class Quiz extends Component {
   render() {
     const { index, showAnswer, correctAnswers, showCorrect, showIncorrect, showQuizOutcome } = this.state;
     const { questions, questionCount } = this.props;
-    if (showQuizOutcome) {
-      const score = Math.floor((correctAnswers / questionCount) * 100);
 
-      return <View style={styles.outcomeContainer}>
-        <Text style={styles.outcomeTitle}>
-          That's it!
-        </Text>
-        <Text style={styles.outcomeSubtitle}>
-          Let's see how you did...
-        </Text>
-        <View style={styles.outcomeStatContainer}>
-          <Text style={styles.outcomeStatMainText}>
-            {`${correctAnswers}/${questionCount}`}
-          </Text>
-          <Text style={styles.outcomeStatSecondaryText}>
-            Correct answers
-          </Text>
-        </View>
-        <View style={styles.outcomeStatContainer}>
-          <Text style={styles.outcomeStatMainText}>
-            {`${score}%`}
-          </Text>
-          <Text style={styles.outcomeStatSecondaryText}>
-            Final score
-          </Text>
-        </View>
-        <View style={styles.outcomeFooter}>
-          <Text style={styles.outcomeFooterText}>
-            {score > 70
-              ? 'Great Job!'
-              : 'Study hard and try again!'
-            }
-          </Text>
-        </View>
-      </View>;
+    if (showQuizOutcome) {
+      return <QuizOutcome
+        correctAnswers={correctAnswers}
+        questionCount={questionCount}
+         />
     }
+
     const question = questions[index];
+
     return (
       <View style={styles.container}>
         <View style={styles.questionIndexContainer}>
           <Text>{`Question ${index + 1}/${questionCount}`}</Text>
           <Text>{`Correct ${correctAnswers}/${questionCount}`}</Text>
         </View>
-        <View style={styles.questionContainer}>
-          <Text style={styles.questionText}>
-            {showAnswer
-              ? question.answer
-              : question.question
-            }
-          </Text>
-          <TextButton onPress={this.handleShowAnswer} style={styles.textButton}>{
-            showAnswer
-              ? 'Show Question'
-              : 'Show Answer'
-          }
-          </TextButton>
-        </View>
+        <Question question={question.question} answer={question.answer} />
         <View style={styles.buttonsContainer}>
-          <Button textColor={white} backgroundColor={green} onPress={() => this.handleAnswer(true)}>Correct</Button>
-          <Button textColor={white} backgroundColor={red} onPress={() => this.handleAnswer(false)}>Incorrect</Button>
+          <Button
+            textColor={white}
+            backgroundColor={green}
+            onPress={() => this.handleAnswer(true)}
+          >
+            Correct
+          </Button>
+          <Button
+            textColor={white}
+            backgroundColor={red}
+            onPress={() => this.handleAnswer(false)}
+          >
+            Incorrect
+          </Button>
         </View>
       </View>
     )
@@ -111,26 +84,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingBottom: 30,
   },
-  buttonsContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  greenContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    alignSelf: 'stretch',
-    paddingBottom: 30,
-    backgroundColor: green
-  },
-  questionContainer: {
-    flex: 2,
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingTop: 30,
-    paddingBottom: 30,
-  },
   questionIndexContainer: {
     flex: 0.5,
     paddingTop: 5,
@@ -140,52 +93,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between'
   },
-  questionText: {
-    fontSize: 35,
-    marginBottom: 10,
-    paddingLeft: 5,
-    paddingRight: 5,
-    textAlign: 'center'
-  },
-  textButton: {
-    fontSize: 18,
-    color: gray
-  },
-  outcomeContainer: {
+  buttonsContainer: {
     flex: 1,
-    justifyContent: 'space-around',
-    alignItems: 'center',
-    paddingBottom: 30,
-  },
-  outcomeStatContainer: {
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  outcomeFooter: {
-    flex: 0.5,
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  outcomeTitle: {
-    fontSize: 35,
-    marginBottom: 10,
-    textAlign: 'center',
-    alignSelf: 'stretch',
-  },
-  outcomeSubtitle: {
-    fontSize: 25,
-    color: gray,
-  },
-  outcomeStatMainText: {
-    fontSize: 30,
-    marginBottom: 10,
-  },
-  outcomeStatSecondaryText: {
-    fontSize: 18,
-    color: gray,
-  },
-  outcomeFooterText: {
-    fontSize: 30
   }
 })
 

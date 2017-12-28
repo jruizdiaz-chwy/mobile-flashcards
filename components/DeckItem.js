@@ -1,29 +1,57 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableNativeFeedback } from 'react-native';
-import { gray } from '../utils/colors';
+import { gray, white } from '../utils/colors';
 
-const DeckItem = (props) => {
+/**
+ * @description Renders a deck list item that offers navigation to the detail view. 
+ * @constructor
+ * @extends React.Component.
+ * @param {object} props An object with: the deck's title and number of questions
+ * and a function to execute on press event.
+ */
+const DeckItem = ({ onPress, title, cardCount }) => {
   return (
-    <TouchableNativeFeedback onPress={props.onPress} style={styles.container}>
-      <View style={styles.container}>
+    <TouchableNativeFeedback onPress={onPress} style={styles.touchableContainer}>
+      <View style={styles.viewContainer}>
         <Text style={styles.titleText}>
-          {props.title}
+          {title}
         </Text>
         <Text style={styles.cardsText}>
-          {`${props.cardCount} cards`}
+          {`${cardCount} cards`}
         </Text>
       </View>
     </TouchableNativeFeedback>
   );
 }
 
+DeckItem.propTypes = {
+  title: PropTypes.string.isRequired,
+  cardCount: PropTypes.number.isRequired,
+  onPress: PropTypes.func.isRequired,
+}
+
 const styles = StyleSheet.create({
-  container: {
+  touchableContainer: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
     paddingTop: 30,
     paddingBottom: 30,
+  },
+  viewContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: 140,
+    marginBottom: 5,
+    backgroundColor: white,
+    borderWidth: 0.5,
+    borderColor: gray,
+    borderRadius: 10,
+    shadowRadius: 3,
+    shadowOpacity: 0.8,
+    shadowColor: 'rgba(0,0,0,0.24)',
+    shadowOffset: {
+      width: 0,
+      height: 3
+    }
   },
   titleText: {
     fontSize: 40,
@@ -34,6 +62,5 @@ const styles = StyleSheet.create({
     color: gray
   }
 })
-
 
 export default DeckItem;

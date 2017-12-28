@@ -1,6 +1,14 @@
 import React from 'react';
 import { Text, TouchableOpacity, StyleSheet } from 'react-native';
+import PropTypes from 'prop-types';
 
+/**
+ * @description Renders a button with feedback that performs a specified action when pressed. 
+ * @constructor
+ * @extends React.Component.
+ * @param {object} props An object with: the button's backgorund and text color, 
+ * the function to execute on press event and a node to render inside the button component.
+ */
 const Button = ({ backgroundColor, textColor, onPress, children }) => {
   return (
     <TouchableOpacity 
@@ -10,6 +18,13 @@ const Button = ({ backgroundColor, textColor, onPress, children }) => {
       <Text style={[styles.buttonText, { color: textColor }]}>{children}</Text>
     </TouchableOpacity>
   )
+}
+
+Button.propTypes = {
+  backgroundColor: PropTypes.string.isRequired,
+  textColor: PropTypes.string.isRequired,
+  onPress: PropTypes.func.isRequired,
+  children: PropTypes.node.isRequired
 }
 
 const styles = StyleSheet.create({

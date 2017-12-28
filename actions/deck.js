@@ -1,8 +1,8 @@
 import { GET_ALL_DECKS, ADD_DECK } from './types';
 import { AsyncStorage } from 'react-native';
 
+//ACTION CREATORS
 export const receiveDecks = (decks) => {
-  debugger;
   return {
     type: GET_ALL_DECKS,
     decks

@@ -23,6 +23,10 @@ export const guid = () => {
     s4() + '-' + s4() + s4() + s4();
 }
 
+/**
+ * @description Generates a random string used for guid creation.
+ * @return {string} a random string.
+ */
 const s4 = () => {
   return Math.floor((1 + Math.random()) * 0x10000)
   .toString(16)

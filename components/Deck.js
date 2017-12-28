@@ -2,10 +2,15 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { View, Text, StyleSheet } from 'react-native';
 import { gray, green, white, black } from '../utils/colors';
-import TextButton from './TextButton';
 import Button from './Button';
 import { objectToArray } from '../utils/helpers';
 
+/**
+ * @description Renders a deck view with the options to start a quiz and add questions to it. 
+ * @constructor
+ * @extends React.Component.
+ * @param {object} props An object with: the deck's title and associated questions.
+ */
 class Deck extends Component {
   constructor(props) {
     super(props);
@@ -58,7 +63,7 @@ class Deck extends Component {
                 textColor={green}
                 onPress={this.goToQuiz}
               >
-                Start Quiz
+                Start Quiz !
               </Button>
             : <Text style={styles.noCardsText}>This deck has no questions yet!</Text> 
             }

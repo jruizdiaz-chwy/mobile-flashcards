@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { View, Text, StyleSheet, TextInput, ToastAndroid } from 'react-native';
+import { View, Text, StyleSheet, TextInput, ToastAndroid, KeyboardAvoidingView } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import Button from './Button';
 import { gray, green, white } from '../utils/colors';
@@ -8,6 +8,12 @@ import { addQuestion } from '../actions/question';
 import { saveQuestion } from '../utils/api';
 import { guid } from '../utils/helpers';
 
+/**
+ * @description Renders a view with input to create a question. 
+ * @constructor
+ * @extends React.Component.
+ * @param {object} props An object with no relevant properties in this case.
+ */
 class AddDeck extends Component {
   constructor(props) {
     super(props);
@@ -43,7 +49,6 @@ class AddDeck extends Component {
         answer: ''
       });
 
-      debugger;
       this.toDeck();
 
     } else {
@@ -54,7 +59,7 @@ class AddDeck extends Component {
   render() {
     const { question, answer } = this.state;
     return (
-      <View style={styles.container}>
+      <KeyboardAvoidingView behavior='padding' style={styles.container}>
         <Text style={styles.titleText}>Insert your question</Text>
         <TextInput
           style={styles.inputText}
@@ -74,7 +79,7 @@ class AddDeck extends Component {
           onPress={this.handleAddQuestion}>
           Add Question
         </Button>
-      </View>
+      </KeyboardAvoidingView>
     )
   }
 }

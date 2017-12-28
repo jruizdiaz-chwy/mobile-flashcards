@@ -1,12 +1,18 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { View, Text, StyleSheet, TextInput, ToastAndroid } from 'react-native';
+import { View, Text, StyleSheet, TextInput, ToastAndroid, KeyboardAvoidingView } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import Button from './Button';
 import { gray, green, white } from '../utils/colors';
 import { addDeck } from '../actions/deck';
 import { saveDeck } from '../utils/api';
 
+/**
+ * @description Renders a view with input to create a deck. 
+ * @constructor
+ * @extends React.Component.
+ * @param {object} props An object with no relevant properties in this case.
+ */
 class AddDeck extends Component {
   constructor(props) {
     super(props);
@@ -44,7 +50,7 @@ class AddDeck extends Component {
   render() {
     const { title } = this.state;
     return (
-      <View style={styles.container}>
+      <KeyboardAvoidingView behavior='padding' style={styles.container}>
         <Text style={styles.titleText}>Give your deck a title</Text>
         <TextInput
           style={styles.inputText}
@@ -58,7 +64,7 @@ class AddDeck extends Component {
           onPress={this.handleAddDeck}>
           Add Deck
         </Button>
-      </View>
+      </KeyboardAvoidingView>
     )
   }
 }
